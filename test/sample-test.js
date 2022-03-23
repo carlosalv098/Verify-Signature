@@ -35,5 +35,6 @@ describe("RestrictedContract", function () {
     tx = await restrictedContract.connect(owner).verifyMessage(flatSignature)
     result = tx[1];
     expect(result).to.be.true;
+
   });
 });

@@ -14,9 +14,12 @@ contract RestrictedContract {
   }
 
   function verifyMessage(bytes memory _sig) public view returns (address, bool) {
+    // construct the message
     bytes32 messageHash = keccak256(abi.encodePacked(address(this), msg.sender));
+    // using ECDSA recover the signer => uses ecrecover in the background
     address signer = messageHash.toEthSignedMessageHash().recover(_sig);
 
+    // check if the signer is allowed or not
     if(owner == signer) return(signer, true);
     else return(signer, false);
   }
